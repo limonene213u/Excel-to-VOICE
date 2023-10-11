@@ -58,3 +58,6 @@ def upload_file():
     engine_url = 'http://host.docker.internal:50021' if engine_option == 'local' else 'http://voicevox:50021'
                  #↑ここのhost.docker.internalをホストのIPに変更
 ```
+
+## Cloudflareなどを使用する場合にタイムアウトする問題について
+Cloudflareはデフォルトでは30秒でタイムアウトするので、Additional Settingsでタイムアウトまでの時間を引き伸ばしてください。
