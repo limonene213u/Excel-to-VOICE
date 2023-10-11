@@ -24,6 +24,8 @@ https://github.com/VOICEVOX/voicevox_engine
 
 <img width="522" alt="image" src="https://github.com/limonene213u/Excel-to-VOICE/assets/57677762/51545ff3-e50b-40ce-82bd-d6f2e9395b2e">
 
+これで基本的には大丈夫ですが、冒頭のノイズのみ残る場合があります。その場合、冒頭だけ数ミリ秒を取り除いてください。
+
 ## 使い方
  1. このリポジトリをクローンして、docker-composeで立ち上げます。
  2. ExcelファイルのA列とB列に読み上げさせたい文章を書きます。
