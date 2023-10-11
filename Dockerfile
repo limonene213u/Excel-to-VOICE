@@ -12,9 +12,6 @@ RUN apt-get update && apt-get install -y wget unzip
 #RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 #RUN apt-get install -y nodejs
 
-# ディレクトリを作成する
-RUN mkdir -p /app/pdfjs
-
 # Pythonの依存関係をインストール
 RUN pip install --upgrade pip
 COPY requirements.txt requirements.txt
