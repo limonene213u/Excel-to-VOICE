@@ -8,6 +8,8 @@
 <img width="522" alt="image" src="https://github.com/limonene213u/Excel-to-VOICE/assets/57677762/51545ff3-e50b-40ce-82bd-d6f2e9395b2e">
 
 ## 使い方
+![image](https://github.com/limonene213u/Excel-to-VOICE/assets/57677762/cb0e4f2f-ce6c-4ee4-9627-55b828a7f522)
+
 このリポジトリをクローンして、docker-composeで立ち上げます。
 ExcelファイルのA列とB列に読み上げさせたい文章を書きます。
 Excelファイルをアップロードします。アップロードすると処理が開始されます。
