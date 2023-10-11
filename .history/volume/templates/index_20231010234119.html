@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOICEVOX Excel to WAV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+        #upload-form {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #upload-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="upload-form">
+        <h1>Excel to WAV</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".xlsx" required>
+            <input type="submit" value="Upload" id="upload-button">
+        </form>
+    </div>
+    <div id="dictionary-form">
+        <h1>ユーザー辞書</h1>
+        <form action="/add_word" method="post">
+            <label for="word">単語:</label>
+            <input type="text" id="word" name="word" required>
+            <label for="pronunciation">発音:</label>
+            <input type="text" id="pronunciation" name="pronunciation" required>
+            <input type="submit" value="登録">
+        </form>
+        <form action="/update_word" method="post">
+            <!-- 既存の単語と発音を選択するためのUI（例：ドロップダウン） -->
+            <!-- 更新する単語と発音の入力 -->
+            <!-- ... -->
+            <input type="submit" value="更新">
+        </form>
+        <form action="/delete_word" method="post">
+            <!-- 削除する単語を選択するためのUI（例：ドロップダウン） -->
+            <!-- ... -->
+            <input type="submit" value="削除">
+        </form>
+        <button id="list-words" onclick="listWords()">一覧表示</button>
+        <div id="word-list"></div>
+        <form action="/sample_voice" method="post">
+            <label for="sample-word">サンプル単語:</label>
+            <input type="text" id="sample-word" name="sample-word" required>
+            <input type="submit" value="サンプルボイス取得">
+        </form>
+    </div>
+    <div id="word-list"></div>
+    </div>
+</body>
+    <script>
+        function listWords() {
+            // Ajaxでサーバーから単語一覧を取得して表示
+            fetch('/list_words')
+            .then(response => response.json())
+            .then(data => {
+                let wordListHtml = '<ul>';
+                for (const [word, pronunciation] of Object.entries(data)) {
+                    wordListHtml += `<li>${word} : ${pronunciation}</li>`;
+                }
+                wordListHtml += '</ul>';
+                document.getElementById('word-list').innerHTML = wordListHtml;
+            });
+        }
+    </script>
+</html>

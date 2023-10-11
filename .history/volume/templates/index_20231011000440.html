@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOICEVOX Excel to WAV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+        #upload-form {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #upload-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="upload-form">
+        <h1>Excel to WAV</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".xlsx" required>
+            <input type="submit" value="Upload" id="upload-button">
+        </form>
+    </div>
+    <div id="dictionary-form">
+        <h1>ユーザー辞書</h1>
+        <form id="addWordForm" action="/add_word" method="post">
+            <label for="word">単語:</label>
+            <input type="text" id="word" name="word" required>
+            <label for="pronunciation">発音:</label>
+            <input type="text" id="pronunciation" name="pronunciation" required>
+            <input type="submit" value="登録">
+        </form>
+        <br>        
+        <form action="/update_word" method="post">
+            <!-- 既存の単語と発音を選択するためのUI（例：ドロップダウン） -->
+            <!-- 更新する単語と発音の入力 -->
+            <!-- ... -->
+            <input type="submit" value="更新">
+        </form>
+        <form action="/delete_word" method="post">
+            <!-- 削除する単語を選択するためのUI（例：ドロップダウン） -->
+            <!-- ... -->
+            <input type="submit" value="削除">
+        </form>
+        <button id="list-words" onclick="listWords()">一覧表示</button>
+        <div id="word-list"></div>
+        <form id="sample-voice-form">
+            <label for="sample-word">サンプル単語:</label>
+            <input type="text" id="sample-word" name="sample-word" required>
+            <button type="button" onclick="getSampleVoice()">サンプルボイス取得</button>
+        </form>
+        <audio id="sample-voice-player" controls></audio>     
+    </div>
+    <div id="word-list"></div>
+    </div>
+</body>
+<script>
+    function getSampleVoice() {
+        const sampleWord = document.getElementById('sample-word').value;
+        // Ajaxでサーバーからサンプルボイスを取得
+        fetch(`/sample_voice?sample-word=${sampleWord}`)
+        .then(response => response.blob())
+        .then(data => {
+            const audioUrl = URL.createObjectURL(data);
+            const audioPlayer = document.getElementById('sample-voice-player');
+            audioPlayer.src = audioUrl;
+        });
+    }
+
+    document.getElementById("addWordForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        // フォームデータを取得にゃ
+        const formData = new FormData(this);
+        
+        // APIにPOSTリクエストを送るにゃ
+        fetch("/add_word", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // ダイアログで結果を表示にゃ
+            alert(data.message);
+        });
+    });
+
+    // 単語の一覧を取得して表示する関数
+    function listWords() {
+        fetch('/list_words')
+        .then(response => response.json())
+        .then(data => {
+            const wordListDiv = document.getElementById('word-list');
+            wordListDiv.innerHTML = '';  // 一旦クリアにゃ
+            for (const [word, pronunciation] of Object.entries(data)) {
+                wordListDiv.innerHTML += `<p>${word}: ${pronunciation}</p>`;
+            }
+        });
+    }
+
+    // 既存の単語を取得して、更新フォームにセットする関数
+    function setUpdateForm() {
+        fetch('/list_words')
+        .then(response => response.json())
+        .then(data => {
+            const updateForm = document.querySelector('form[action="/update_word"]');
+            let selectElement = document.createElement('select');
+            selectElement.name = 'word';
+            for (const [word, _] of Object.entries(data)) {
+                let optionElement = document.createElement('option');
+                optionElement.value = word;
+                optionElement.textContent = word;
+                selectElement.appendChild(optionElement);
+            }
+            updateForm.appendChild(selectElement);
+        });
+    }
+
+    // 既存の単語を取得して、削除フォームにセットする関数
+    function setDeleteForm() {
+        fetch('/list_words')
+        .then(response => response.json())
+        .then(data => {
+            const deleteForm = document.querySelector('form[action="/delete_word"]');
+            let selectElement = document.createElement('select');
+            selectElement.name = 'word';
+            for (const [word, _] of Object.entries(data)) {
+                let optionElement = document.createElement('option');
+                optionElement.value = word;
+                optionElement.textContent = word;
+                selectElement.appendChild(optionElement);
+            }
+            deleteForm.appendChild(selectElement);
+        });
+    }
+
+    // ページが読み込まれたら、一覧を表示するにゃ
+    window.onload = function() {
+        listWords();
+        setUpdateForm();
+        setDeleteForm();
+    }
+    </script>
+    
+</html>

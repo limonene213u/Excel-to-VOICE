@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOICEVOX Excel to WAV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        #upload-form {
+            margin: auto;
+            width: 50%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #upload-form h1 {
+            margin-bottom: 10px;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+        #upload-form input[type="file"] {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #upload-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #upload-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div id="upload-form">
+        <h1>Excel to WAV</h1>
+        <p style="text-align: center;">ExcelファイルのA列とB列を交互に読み上げます。<br>
+            チェックボックスにチェックを入れるとA列のみ連続読み上げも可能です。<br>
+        処理の関係上、出力ファイルにクリックノイズが入りますが、<br>
+        Audacityなどできれいに取り除けます。<br>
+        ※Excelファイルはxlsx形式である必要があります。</p>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="engine-option">Engine Option:</label><br>
+        <input type="radio" id="docker-engine" name="engine-option" value="docker" checked>
+        <label for="docker-engine">Docker内蔵</label><br>
+        <input type="radio" id="local-engine" name="engine-option" value="local">
+        <label for="local-engine">Local VOICEVOX app</label><br>
+        <p style="text-align: center;">※PCにVOICEVOXをダウンロードして立ち上げておくとlocalで処理できます。</p><br>
+        <label for="single_column">A列のみを処理（オプション）</label><input type="checkbox" name="single_column" id="single_column"><br><br>
+        <input type="file" name="file" accept=".xlsx" required>
+        <br>
+        <label for="speaker-id-a">Speaker（A）:</label><br>
+        <select id="speaker-id-a" name="speaker-id-a">
+            <option value="2">四国めたん (ノーマル)</option>
+            <option value="0">四国めたん (あまあま)</option>
+            <option value="36">四国めたん (ささやき)</option>
+            <option value="3">ずんだもん (ノーマル)</option>
+            <option value="1">ずんだもん (あまあま)</option>
+            <option value="22">ずんだもん (ささやき)</option>
+            <option value="38">ずんだもん (ひそひそ)</option>
+            <option value="8">春日部つむぎ (ノーマル)</option>
+            <option value="23">WhiteCUL (ノーマル)</option>
+            <option value="24">WhiteCUL (たのしい)</option>
+            <option value="25">WhiteCUL (かなしい)</option>
+            <option value="26">WhiteCUL (びえーん)</option>
+            <option value="30">No.7 (アナウンス)</option>
+            <option value="31">No.7 (読み聞かせ)</option>
+            <!-- ... 他の話者のオプションを追加するにゃん -->
+            <option value="50">ナースロボ＿タイプＴ (内緒話)</option>
+        </select><br><br>
+            <!-- 2つ目の話者を選択するドロップダウンメニューを追加にゃん -->
+            <label for="speaker-id-b">Speaker(B):</label><br>
+            <select name="speaker-id-b" id="speaker-id-b">
+                <!-- ここに話者のオプションを追加するにゃん -->
+                <option value="2">四国めたん (ノーマル)</option>
+                <option value="0">四国めたん (あまあま)</option>
+                <option value="36">四国めたん (ささやき)</option>
+                <option value="3">ずんだもん (ノーマル)</option>
+                <option value="1">ずんだもん (あまあま)</option>
+                <option value="22">ずんだもん (ささやき)</option>
+                <option value="38">ずんだもん (ひそひそ)</option>
+                <option value="8">春日部つむぎ (ノーマル)</option>
+                <option value="23">WhiteCUL (ノーマル)</option>
+                <option value="24">WhiteCUL (たのしい)</option>
+                <option value="25">WhiteCUL (かなしい)</option>
+                <option value="26">WhiteCUL (びえーん)</option>
+                <option value="30">No.7 (アナウンス)</option>
+                <option value="31">No.7 (読み聞かせ)</option>
+                <!-- ... 他の話者のオプションを追加するにゃん -->
+                <option value="50">ナースロボ＿タイプＴ (内緒話)</option>
+        </select><br><br>
+        <input type="submit" value="Upload" id="upload-button">
+    </form>
+</body>
+</html>

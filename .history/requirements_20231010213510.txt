@@ -1,0 +1,12 @@
+Flask==2.3.3
+Werkzeug
+mysql-connector-python==8.0.28
+Flask-SQLAlchemy
+PyMySQL
+python-dotenv
+mysqlclient
+sqlalchemy
+mysql-connector-python
+beautifulsoup4
+Flask-Admin
+python-dateutil
