@@ -11,6 +11,11 @@
 Flaskで作ったVOICEVOXの読み上げ支援アプリです。
 個人的に作ったものですが、公開します。
 
+開発環境&テスト環境はIntel MacBookPro 16inch（2019、macOS Sonoma 14.0）、OrbStackです。
+
+※OrbStackのページ
+https://docs.orbstack.dev/
+
 ## 使い方
 ![image](https://github.com/limonene213u/Excel-to-VOICE/assets/57677762/cb0e4f2f-ce6c-4ee4-9627-55b828a7f522)
 
