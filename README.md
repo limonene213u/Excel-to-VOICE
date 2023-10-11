@@ -43,3 +43,4 @@ https://github.com/VOICEVOX/voicevox_engine
 http://localhost:50021/setting
 
 にアクセスしてCORS設定してみてください。
+ちゃんと設定すればたぶん必要ないとは思いますが、いちおうnginx（リバースプロキシとして使用可能）の設定もコメントアウトしたうえで残しておきます。
