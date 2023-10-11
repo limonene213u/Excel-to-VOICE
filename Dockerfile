@@ -8,9 +8,9 @@ RUN apt-get install -y tree pkg-config libmariadb-dev-compat libmariadb-dev libm
 RUN apt-get update && apt-get install -y wget unzip
 
 
-# Node.jsとnpmをインストール
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install -y nodejs
+# Node.jsとnpmをインストール（機能拡張などで必要であれば）
+#RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+#RUN apt-get install -y nodejs
 
 # ディレクトリを作成する
 RUN mkdir -p /app/pdfjs
