@@ -38,7 +38,7 @@ https://github.com/VOICEVOX/voicevox_engine
 
 ## オプション
 内蔵でCPU版のVOICEVOX ENGINEを搭載していますが、お使いのVOICEVOXを立ち上げておくと、アプリ側で処理することができます。
-普段の設定（ユーザー辞書など）を使用することができます。
+PC側のVOICEVOXを使う場合、普段の設定（ユーザー辞書など）を使用することができます。
 
 うまくいかない場合、
 
